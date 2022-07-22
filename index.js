@@ -11,12 +11,15 @@ app.use(cors())
 
 app.get("/api/categories", function(req,res,next){
   const numOfCategories = req.query.count || 5;
-  return res.send(categories.slice(0, numOfCategories))
+  return res.json(categories.slice(0, numOfCategories))
 })
 
 app.get("/api/category", function (req, res, next) {
   const categoryId = req.query.id
-  return res.send(categoryDetail[categoryId])
+  if (categoryId === undefined) {
+    throw new BadRequestError("Must pass in a query string parameter of id")
+  }
+  return res.json(categoryDetail[categoryId])
 })
 
 /** Handle 404 errors -- this matches everything */
