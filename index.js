@@ -19,6 +19,9 @@ app.get("/api/category", function (req, res, next) {
   if (categoryId === undefined) {
     throw new BadRequestError("Must pass in a query string parameter of id")
   }
+  if (categoryId[categoryId] === undefined) {
+    throw new BadRequestError("Invalid category id");
+  }
   return res.json(categoryDetail[categoryId])
 })
 
