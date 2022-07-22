@@ -3,7 +3,7 @@ const PORT = process.env.PORT || 3000
 const express = require("express");
 const morgan = require("morgan")
 const app = express();
-const { NotFoundError } = require("./expressError");
+const { BadRequestError, NotFoundError } = require("./expressError");
 app.use(morgan("tiny"));
 const cors = require("cors");
 
