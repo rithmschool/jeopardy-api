@@ -5,6 +5,9 @@ const morgan = require("morgan")
 const app = express();
 const { NotFoundError } = require("./expressError");
 app.use(morgan("tiny"));
+const cors = require("cors");
+
+app.use(cors())
 
 app.get("/api/categories", function(req,res,next){
   const numOfCategories = req.query.count || 5;
