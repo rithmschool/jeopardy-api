@@ -13,11 +13,12 @@ const app = express();
 app.use(cors());
 app.use(morgan("tiny"));
 
+
 /** GET /api/categories
  *
- * Returns [ {id, title, clues_count}, ... ]
+ * Returns array of category objects: [ {id, title, clues_count}, ... ]
  *
- * Optional query param of "count"; defaults to 5 if omitted.
+ * Optional query param of "count"; defaults to 5 if query param is omitted.
  *
 */
 app.get("/api/categories", function (req, res, next) {
@@ -28,20 +29,22 @@ app.get("/api/categories", function (req, res, next) {
 
 /** GET /api/category?id=[categoryId]
  *
- * Returns { id, title, clues: [ clue, ...] }
- *  where each "clue" object contains { id, answer, question, ...}
+ * Returns category object: { id, title, clues: [ clue, ... ], clues_count }
+ *  where each "clue" object includes: { id, answer, question, ...}
  *
- * Required query param of category id, throws error if not provided.
+ * Throws bad request error on malformed query string.
  *
 */
 app.get("/api/category", function (req, res, next) {
   const categoryId = req.query.id;
+
   if (categoryId === undefined) {
     throw new BadRequestError("Must pass in a query string parameter of id");
   }
   if (categoryDetail[categoryId] === undefined) {
     throw new BadRequestError("Invalid category id");
   }
+
   return res.json(categoryDetail[categoryId]);
 });
 
@@ -62,5 +65,6 @@ app.use(function (err, req, res, next) {
     error: { message, status },
   });
 });
+
 
 module.exports = app;
