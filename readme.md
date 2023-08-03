@@ -6,7 +6,7 @@ web-dev-2 is down so this is a thrown together in < 60 minutes backup for that.
 To start:
 
 `npm install`
-`node app.js`
+`npm start`
 
 Deployed at https://rithm-jeopardy.herokuapp.com/
 
